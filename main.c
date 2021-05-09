@@ -2,7 +2,7 @@
 #include <stdint.h>
 
 #define READ_SIZE 24
-#define SEGMENT_SIZE 12
+#define SEGMENT_SIZE 8
 
 void print_bytes_as_ascii(uint8_t *buffer, size_t bytes_readed)
 {
