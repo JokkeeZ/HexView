@@ -1,0 +1,28 @@
+{
+	"files.associations": {
+		"cmath": "c",
+		"xlocale": "c",
+		"initializer_list": "c",
+		"type_traits": "c",
+		"xstring": "c",
+		"xutility": "c"
+	},
+
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/.gitignore": true,
+		"**/.gitattributes": true,
+		"**/*.exe": true,
+		"**/*.ilk": true,
+		"**/*.obj": true,
+		"**/*.pdb": true,
+	},
+
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false,
+	"editor.trimAutoWhitespace": true
+}
