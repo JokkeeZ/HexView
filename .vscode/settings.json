@@ -19,7 +19,7 @@
 		"**/*.exe": true,
 		"**/*.ilk": true,
 		"**/*.obj": true,
-		"**/*.pdb": true,
+		"**/*.pdb": true
 	},
 
 	"editor.tabSize": 4,
