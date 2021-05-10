@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 
 #define READ_SIZE 24
@@ -9,8 +10,7 @@ void print_bytes_as_ascii(uint8_t *buffer, size_t bytes_readed)
 	for (int i = 0; i < bytes_readed; ++i) {
 		if (buffer[i] >= '!' && buffer[i] <= '~') {
 			printf("%c", buffer[i]);
-		}
-		else {
+		} else {
 			printf(".");
 		}
 	}
@@ -23,21 +23,28 @@ void print_hex_segments(uint8_t *buffer, size_t bytes_readed)
 	for (int i = 0; i < READ_SIZE; ++i) {
 		if (i <= bytes_readed) {
 			printf("%02X", buffer[i]);
-		}
-		else {
-			// We have already readed all the available bytes,
-			// so lets add whitespace so ascii is always on the same position.
+		} else {
 			printf("  ");
 		}
 
-		if ((((i + 1) % (SEGMENT_SIZE / 2)) == 0) && (i != READ_SIZE - 1)) {
+		if ((i + 1) % (SEGMENT_SIZE / 2) == 0
+			&& i != (READ_SIZE - 1)) {
 			printf(" ");
 		}
-
-		if (i == (READ_SIZE - 1)) {
-			printf("  ");
-		}
 	}
+}
+
+int get_offset_width(long file_length)
+{
+	long remaining = file_length / 16;
+	int width = 1;
+
+	while (remaining != 0) {
+		remaining /= 16;
+		++width;
+	}
+
+	return width;
 }
 
 int main(int argc, char *argv[])
@@ -61,23 +68,26 @@ int main(int argc, char *argv[])
 	fseek(file, 0, SEEK_SET);
 
 	if (file_length < READ_SIZE) {
-		printf("Expected file size >= %d bytes, received only %d.\n", READ_SIZE, file_length);
+		printf("Expected file size >= %d bytes, received only %d.\n", 
+				READ_SIZE, file_length);
 		fclose(file);
 		return 1;
 	}
 
-	long offset = 0L;
-
-	while (offset < file_length) {
+	while (ftell(file) < file_length) {
 		uint8_t buffer[READ_SIZE];
+
+		char *format = (char*)malloc(9 * sizeof(char));
+		sprintf(format, "0x%%0%ix  ", get_offset_width(file_length));
+		printf(format, ftell(file));
+
+		free(format);
+
 		size_t read_count = fread(buffer, 1, READ_SIZE, file);
 
-		printf("0x%06X  ", offset);
-
 		print_hex_segments(buffer, read_count);
+		printf("  ");
 		print_bytes_as_ascii(buffer, read_count);
-
-		offset += READ_SIZE;
 	}
 
 	fclose(file);
