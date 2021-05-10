@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 #define READ_SIZE 24
-#define SEGMENT_SIZE 8
+#define SEGMENT_SIZE 4
 
 void print_bytes_as_ascii(uint8_t *buffer, size_t bytes_readed)
 {
@@ -27,7 +27,7 @@ void print_hex_segments(uint8_t *buffer, size_t bytes_readed)
 			printf("  ");
 		}
 
-		if ((i + 1) % (SEGMENT_SIZE / 2) == 0
+		if ((i + 1) % SEGMENT_SIZE == 0
 			&& i != (READ_SIZE - 1)) {
 			printf(" ");
 		}
