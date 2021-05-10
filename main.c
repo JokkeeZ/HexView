@@ -36,11 +36,11 @@ void print_hex_segments(uint8_t *buffer, size_t bytes_readed)
 
 int get_offset_width(long file_length)
 {
-	long remaining = file_length / 16;
+	long quotient = file_length / 16;
 	int width = 1;
 
-	while (remaining != 0) {
-		remaining /= 16;
+	while (quotient != 0) {
+		quotient /= 16;
 		++width;
 	}
 
