@@ -68,8 +68,8 @@ int main(int argc, char *argv[])
 	fseek(file, 0, SEEK_SET);
 
 	if (file_length < READ_SIZE) {
-		printf("Expected file size >= %d bytes, received only %d.\n", 
-				READ_SIZE, file_length);
+		printf("Expected file size >= %d bytes, received only %d.\n",
+			READ_SIZE, file_length);
 		fclose(file);
 		return 1;
 	}
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 	while (ftell(file) < file_length) {
 		uint8_t buffer[READ_SIZE];
 
-		char *format = (char*)malloc(9 * sizeof(char));
+		char *format = (char *)malloc(9 * sizeof(char));
 		sprintf(format, "0x%%0%ix  ", get_offset_width(file_length));
 		printf(format, ftell(file));
 
