@@ -74,14 +74,13 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
+	char *format = (char *)malloc(9 * sizeof(char));
+	sprintf(format, "0x%%0%ix  ", get_offset_width(file_length));
+
 	while (ftell(file) < file_length) {
 		uint8_t buffer[READ_SIZE];
 
-		char *format = (char *)malloc(9 * sizeof(char));
-		sprintf(format, "0x%%0%ix  ", get_offset_width(file_length));
 		printf(format, ftell(file));
-
-		free(format);
 
 		size_t read_count = fread(buffer, 1, READ_SIZE, file);
 
@@ -90,6 +89,7 @@ int main(int argc, char *argv[])
 		print_bytes_as_ascii(buffer, read_count);
 	}
 
+	free(format);
 	fclose(file);
 	return 0;
 }
