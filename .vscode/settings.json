@@ -21,8 +21,10 @@
 		"**/*.obj": true,
 		"**/*.pdb": true
 	},
-
-	"editor.tabSize": 4,
-	"editor.insertSpaces": false,
-	"editor.trimAutoWhitespace": true
+	
+	"editor.formatOnSave": true,
+	"editor.formatOnSaveMode": "modifications",
+	"C_Cpp.formatting": "vcFormat",
+	"C_Cpp.vcFormat.space.pointerReferenceAlignment": "right",
+	"C_Cpp.vcFormat.newLine.beforeElse": false
 }
