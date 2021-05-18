@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	fseek(file, 0, SEEK_SET);
 
 	if (file_length < READ_SIZE) {
-		printf("Expected file size >= %d bytes, received only %d.\n",
+		printf("Expected file size >= %d bytes, received only %ld.\n",
 			READ_SIZE, file_length);
 		fclose(file);
 		return 1;
